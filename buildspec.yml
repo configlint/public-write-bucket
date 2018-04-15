@@ -1,0 +1,19 @@
+version: 0.2
+
+env:
+  variables:
+    TARBALL: https://github.com/stelligent/config-lint/releases/download/v0.0.2/config-lint_0.0.2_Linux_i386.tar.gz 
+    CONFIG_LINT_DIR: /config-lint
+
+phases:
+  install:
+    commands:
+      - mkdir -p $CONFIG_LINT_DIR
+      - curl -sL $TARBALL | tar xvfz - -C $CONFIG_LINT_DIR
+  build:
+    commands:
+      - $CONFIG_LINT_DIR/config-lint -terraform *.tf
+
+artifacts:
+  files:
+    - '**/*'
